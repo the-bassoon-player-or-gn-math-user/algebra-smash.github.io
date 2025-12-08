@@ -290,6 +290,28 @@
                 <input type="text" id="tab-icon" placeholder="Paste favicon image URL">
             </div>
             <button class="apply-btn" id="apply-settings">Apply</button>
+            <button class="apply-btn" id="openTab">Open in about:blank</button>
+            <script>
+                document.getElementById('openTab').addEventListener('click', async function() {
+    const codeUrl = 'https://raw.githubusercontent.com/canvas-dashboard/algebra-smash.github.io/refs/heads/main/index.html'; // CHANGE TO YOUR URL
+    try {
+        const response = await fetch(codeUrl);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const code = await response.text();
+        // Open a new tab
+        const newTab = window.open();
+        if (newTab) {
+            newTab.document.open();
+            newTab.document.write(code);
+            newTab.document.close();
+        } else {
+            alert('Pop-up blocked!');
+        }
+    } catch (e) {
+        alert('Error fetching code: ' + e.message);
+    }
+});
+            </script>
         </form>
     </div>
     <script>
